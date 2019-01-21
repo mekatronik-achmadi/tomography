@@ -12,10 +12,10 @@ from tomo_data import DataTomo
 
 n_matrix = 6
 
-tomo = SerialTomo('/dev/ttyACM0',n_matrix)
-data = DataTomo(n_matrix)
+tomo_obj = SerialTomo('/dev/ttyACM0',n_matrix)
+data_obj = DataTomo(n_matrix)
 
-base = tomo.dataAll()
+base = tomo_obj.dataAll()
 
 print('now put your object')
 print('re-measure in:')
@@ -23,7 +23,7 @@ for i in range(10):
     print("%i" % (9-i))
     time.sleep(1)
 
-tomo.dataAll()
+tomo_obj.dataAll()
 
-data.plotBeam(base,3)
-tomo.plotAllBeam(3)
+data_obj.plotBeam(base,3)
+tomo_obj.plotAllBeam(3)
