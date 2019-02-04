@@ -12,6 +12,7 @@
 #include "stdio.h"
 
 #include "din_uart.h"
+#include "din_adc.h"
 #include "din_ir.h"
 #include "din_usb.h"
 

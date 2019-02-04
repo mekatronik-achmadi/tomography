@@ -1,6 +1,7 @@
 #include "din_shell.h"
 
-extern adcsample_t adc0,adc1,adc2,adc3,adc4,adc5;
+adcsample_t vadc[12];
+extern adcsample_t adc0,adc1,adc2,adc3;
 extern SerialUSBDriver SDU1;
 
 /**
@@ -15,17 +16,21 @@ static void cmd_adc(BaseSequentialStream *chp, int argc, char *argv[]) {
 
     (void)argv;
     (void)argc;
+    uint8_t i;
 
-    chprintf(chp,"%4i,%4i,%4i,%4i,%4i,%4i\r\n",adc0,adc1,adc2,adc3,adc4,adc5);
-}
+    vadc[0] = adc0;
+    vadc[1] = adc1;
+    vadc[2] = adc2;
+    vadc[3] = adc3;
 
-static void cmd_on(BaseSequentialStream *chp, int argc, char *argv[]) {
+    for(i=4;i<12;i++){
+        vadc[i] = d_adc_mux(i);
+    }
 
-    (void)argv;
-    (void)argc;
-    (void)chp;
-
-    d_ir_allOn();
+    chprintf(chp,"%4i,%4i,%4i,%4i,%4i,%4i,%4i,%4i,%4i,%4i,%4i,%4i\r\n",
+            vadc[0],vadc[1],vadc[2],vadc[3],
+            vadc[4],vadc[5],vadc[6],vadc[7],
+            vadc[8],vadc[9],vadc[10],vadc[11]);
 }
 
 static void cmd_off(BaseSequentialStream *chp, int argc, char *argv[]) {
@@ -34,7 +39,7 @@ static void cmd_off(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argc;
     (void)chp;
 
-    d_ir_allOff();
+    d_ir_Off();
 }
 
 static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]) {
@@ -47,7 +52,6 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]) {
 
     num=atoi(argv[0]);
     d_ir_numOn(num);
-
 }
 
 /**
@@ -55,7 +59,6 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]) {
  */
 static const ShellCommand commands[] = {
     {"adc",cmd_adc},
-    {"on",cmd_on},
     {"off",cmd_off},
     {"led",cmd_led},
     {NULL, NULL}

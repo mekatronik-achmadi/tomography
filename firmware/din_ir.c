@@ -1,56 +1,103 @@
 #include "din_ir.h"
 
 void d_ir_start(void){
-    palSetPadMode(GPIOB,IR_0,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB,IR_1,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB,IR_2,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB,IR_3,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB,IR_4,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB,IR_5,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,L_0,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,L_1,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,L_2,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,L_3,PAL_MODE_OUTPUT_PUSHPULL);
+
+    palSetPadMode(GPIOB,LI,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,LA,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,LB,PAL_MODE_OUTPUT_PUSHPULL);
+
+    palSetPadMode(GPIOA,LC,PAL_MODE_OUTPUT_PUSHPULL);
 }
 
-void d_ir_allOn(void){
-    palSetPad(GPIOB,IR_0);
-    palSetPad(GPIOB,IR_1);
-    palSetPad(GPIOB,IR_2);
-    palSetPad(GPIOB,IR_3);
-    palSetPad(GPIOB,IR_4);
-    palSetPad(GPIOB,IR_5);
+void d_ir_Off(void){
+    palClearPad(GPIOB,L_0);
+    palClearPad(GPIOB,L_1);
+    palClearPad(GPIOB,L_2);
+    palClearPad(GPIOB,L_3);
+
+    palSetPad(GPIOB,LI);
 }
 
-void d_ir_allOff(void){
-    palClearPad(GPIOB,IR_0);
-    palClearPad(GPIOB,IR_1);
-    palClearPad(GPIOB,IR_2);
-    palClearPad(GPIOB,IR_3);
-    palClearPad(GPIOB,IR_4);
-    palClearPad(GPIOB,IR_5);
+static void d_ir_mux(uint8_t nmux){
+    l0(GPIOB,LI);
+
+    switch (nmux) {
+    case 4: //x5 101
+        l1(GPIOA,LC);l0(GPIOB,LB);l1(GPIOB,LA);
+        break;
+    case 5: //x7 111
+        l1(GPIOA,LC);l1(GPIOB,LB);l1(GPIOB,LA);
+        break;
+    case 6: //x6 110
+        l1(GPIOA,LC);l1(GPIOB,LB);l0(GPIOB,LA);
+        break;
+    case 7: //x4 100
+        l1(GPIOA,LC);l0(GPIOB,LB);l0(GPIOB,LA);
+        break;
+    case 8: //x2 010
+        l0(GPIOA,LC);l1(GPIOB,LB);l0(GPIOB,LA);
+        break;
+    case 9: //x1 001
+        l0(GPIOA,LC);l0(GPIOB,LB);l1(GPIOB,LA);
+        break;
+    case 10: //x0 000
+        l0(GPIOA,LC);l0(GPIOB,LB);l0(GPIOB,LA);
+        break;
+    case 11: //x3 011
+        l0(GPIOA,LC);l1(GPIOB,LB);l1(GPIOB,LA);
+        break;
+    default:
+        l1(GPIOB,LI);
+        break;
+    }
 }
 
 void d_ir_numOn(uint8_t num){
-    d_ir_allOff();
+    d_ir_Off();
 
     switch (num) {
     case 0:
-        palSetPad(GPIOB,IR_0);
+        palSetPad(GPIOB,L_0);
         break;
     case 1:
-        palSetPad(GPIOB,IR_1);
+        palSetPad(GPIOB,L_1);
         break;
     case 2:
-        palSetPad(GPIOB,IR_2);
+        palSetPad(GPIOB,L_2);
         break;
     case 3:
-        palSetPad(GPIOB,IR_3);
+        palSetPad(GPIOB,L_3);
         break;
     case 4:
-        palSetPad(GPIOB,IR_4);
+        d_ir_mux(num);
         break;
     case 5:
-        palSetPad(GPIOB,IR_5);
+        d_ir_mux(num);
+        break;
+    case 6:
+        d_ir_mux(num);
+        break;
+    case 7:
+        d_ir_mux(num);
+        break;
+    case 8:
+        d_ir_mux(num);
+        break;
+    case 9:
+        d_ir_mux(num);
+        break;
+    case 10:
+        d_ir_mux(num);
+        break;
+    case 11:
+        d_ir_mux(num);
         break;
     default:
-        d_ir_allOff();
+        d_ir_Off();
         break;
     }
 }

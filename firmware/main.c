@@ -57,7 +57,7 @@ int main(void) {
 //  d_usb_info();
 
   d_ir_start();
-  d_ir_allOff();
+  d_ir_Off();
 
 #ifdef SERVER_NOTIF
   chprintf((BaseSequentialStream *)&SD1,"All Setup Finished\r\n");
