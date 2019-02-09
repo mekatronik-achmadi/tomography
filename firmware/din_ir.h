@@ -13,10 +13,10 @@
 #define L_3 6 // GPIOB
 
 #define LI 5 // GPIOB
-#define LA 4 // GPIOB
+#define LC 4 // GPIOB
 #define LB 3 // GPIOB
 
-#define LC 15 //GPIOA
+#define LA 15 //GPIOA
 
 #define l0 palClearPad
 #define l1 palSetPad

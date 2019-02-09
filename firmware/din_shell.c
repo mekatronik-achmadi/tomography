@@ -52,6 +52,7 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]) {
 
     num=atoi(argv[0]);
     d_ir_numOn(num);
+//    chprintf(chp,"led %1i\r\n",num);
 }
 
 /**

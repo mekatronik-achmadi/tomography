@@ -29,7 +29,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:bluepill_breakouts
-LIBS:tomo-cache
 EELAYER 25 0
 EELAYER END
 $Descr User 11811 7874
@@ -282,19 +281,19 @@ Wire Wire Line
 Text Label 6200 3650 0    60   ~ 0
 L_INH
 Text Label 6200 3750 0    60   ~ 0
-L_A
+L_C
 Text Label 6200 3850 0    60   ~ 0
 L_B
 Text Label 6200 3950 0    60   ~ 0
-L_C
+L_A
 Text Label 7000 4450 0    60   ~ 0
 L_INH
 Text Label 7000 4550 0    60   ~ 0
-L_C
+L_A
 Text Label 7000 4650 0    60   ~ 0
 L_B
 Text Label 7000 4750 0    60   ~ 0
-L_A
+L_C
 $Comp
 L CONN_01X12 J-LED1
 U 1 1 5C404B49

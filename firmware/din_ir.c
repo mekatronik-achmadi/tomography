@@ -7,10 +7,10 @@ void d_ir_start(void){
     palSetPadMode(GPIOB,L_3,PAL_MODE_OUTPUT_PUSHPULL);
 
     palSetPadMode(GPIOB,LI,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB,LA,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOB,LC,PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB,LB,PAL_MODE_OUTPUT_PUSHPULL);
 
-    palSetPadMode(GPIOA,LC,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOA,LA,PAL_MODE_OUTPUT_PUSHPULL);
 }
 
 void d_ir_Off(void){
@@ -27,28 +27,28 @@ static void d_ir_mux(uint8_t nmux){
 
     switch (nmux) {
     case 4: //x5 101
-        l1(GPIOA,LC);l0(GPIOB,LB);l1(GPIOB,LA);
+        l1(GPIOB,LC);l0(GPIOB,LB);l1(GPIOA,LA);
         break;
     case 5: //x7 111
-        l1(GPIOA,LC);l1(GPIOB,LB);l1(GPIOB,LA);
+        l1(GPIOB,LC);l1(GPIOB,LB);l1(GPIOA,LA);
         break;
     case 6: //x6 110
-        l1(GPIOA,LC);l1(GPIOB,LB);l0(GPIOB,LA);
+        l1(GPIOB,LC);l1(GPIOB,LB);l0(GPIOA,LA);
         break;
     case 7: //x4 100
-        l1(GPIOA,LC);l0(GPIOB,LB);l0(GPIOB,LA);
+        l1(GPIOB,LC);l0(GPIOB,LB);l0(GPIOA,LA);
         break;
     case 8: //x2 010
-        l0(GPIOA,LC);l1(GPIOB,LB);l0(GPIOB,LA);
+        l0(GPIOB,LC);l1(GPIOB,LB);l0(GPIOA,LA);
         break;
     case 9: //x1 001
-        l0(GPIOA,LC);l0(GPIOB,LB);l1(GPIOB,LA);
+        l0(GPIOB,LC);l0(GPIOB,LB);l1(GPIOA,LA);
         break;
     case 10: //x0 000
-        l0(GPIOA,LC);l0(GPIOB,LB);l0(GPIOB,LA);
+        l0(GPIOB,LC);l0(GPIOB,LB);l0(GPIOA,LA);
         break;
     case 11: //x3 011
-        l0(GPIOA,LC);l1(GPIOB,LB);l1(GPIOB,LA);
+        l0(GPIOB,LC);l1(GPIOB,LB);l1(GPIOA,LA);
         break;
     default:
         l1(GPIOB,LI);
